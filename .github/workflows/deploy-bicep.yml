@@ -1,5 +1,5 @@
 on: [push]
-name: Azure ARM
+name: Deploy Azure Storage using Bicep template
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
