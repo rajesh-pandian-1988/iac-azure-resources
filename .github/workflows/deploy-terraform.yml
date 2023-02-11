@@ -2,7 +2,7 @@ name: Deploy Azure using Terraform
 on: [push]
 
 jobs:
-  terraform:
+  deploy-infrastructure:
     runs-on: ubuntu-latest
 
     env:
@@ -12,7 +12,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -22,6 +22,20 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -out main.tfplan
-      
+
       - name: Terraform Apply
         run: terraform apply "main.tfplan"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Upload to blob storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch --account-name staticstorage0241 --auth-mode key -d '$web' -s ./app

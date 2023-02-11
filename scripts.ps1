@@ -1,6 +1,8 @@
 az ad sp create-for-rbac --name "myML" --role contributor --scopes /subscriptions/35b269d2-7c5c-4f36-abf1-56099fd97991/resourceGroups/test-resource-group --sdk-auth
 
 az ad sp create-for-rbac --name "myML" --role contributor --scopes /subscriptions/35b269d2-7c5c-4f36-abf1-56099fd97991 --sdk-auth
+
+az storage blob upload-batch --account-name investmentportfoliostore --auth-mode key -d '$web' -s ./app
 {
   "clientId": "cc5ba836-cd1a-4bbe-b810-e04de2ab586d",
   "clientSecret": "tct8Q~oqtvig5yV5cqfy1v2ee92LmORzLO7MZayA",
