@@ -1,3 +1,3 @@
-output "app-url" {
-  value = "https://${azurerm_windows_web_app.terraform_app_service.name}.azurewebsites.net"
+output "azurerm_resource_group" {
+  value = azurerm_resource_group.azure_contianer_rg.name
 }
