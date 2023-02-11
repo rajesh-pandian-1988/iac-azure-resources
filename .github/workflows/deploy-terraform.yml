@@ -27,6 +27,7 @@ jobs:
         run: terraform apply "main.tfplan"
 
   build:
+    needs: deploy-infrastructure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
