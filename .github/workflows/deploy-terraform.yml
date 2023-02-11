@@ -39,12 +39,12 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Login to Azure Container Registry
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            $registryId=$(az acr show --name terraformdockeracr --resource-group azure-container-rg --query id --output tsv)
-            az role assignment create --assignee ${{ secrets.ARM_CLIENT_ID }} --scope $registryId --role AcrPush
+      # - name: Login to Azure Container Registry
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       $registryId=$(az acr show --name terraformdockeracr --resource-group azure-container-rg --query id --output tsv)
+      #       az role assignment create --assignee ${{ secrets.ARM_CLIENT_ID }} --scope $registryId --role AcrPush
 
       - name: "Build and push image"
         uses: azure/docker-login@v1
