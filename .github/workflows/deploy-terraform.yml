@@ -26,7 +26,7 @@ jobs:
       - name: Terraform Apply
         run: terraform apply "main.tfplan"
 
-  build:
+  deploy-code:
     needs: deploy-infrastructure
     runs-on: ubuntu-latest
     steps:
@@ -39,4 +39,5 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name staticstorage0241 --auth-mode key -d '$web' -s ./app
+            cd app
+            az webapp up --name app-service-0420 --html
